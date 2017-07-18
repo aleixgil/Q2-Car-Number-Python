@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>avrmcu &mdash; Projecte TeProg: SimulAVR 1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Projecte TeProg: SimulAVR 1.0 documentation" href="../index.html"/>
+        <link rel="up" title="Module code" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Projecte TeProg: SimulAVR
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Simulador AVR</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BitVec.html">Mòdul BitVec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BitVecTest.html">Doctests del Mòdul BitVec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Memory.html">Mòdul Memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../State.html">Mòdul State</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Instruction.html">Mòdul Instruction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Repertoir.html">Mòdul Repertoir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AvrMcu.html">Mòdul AvrMcu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AVRException.html">Mòdul AVRException</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SimAvr.html">Mòdul SimAvr</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Projecte TeProg: SimulAVR</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+        <li><a href="index.html">Module code</a> &raquo;</li>
+      
+    <li>avrmcu</li>
+    <li class="wy-breadcrumbs-aside">
+      
+          
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for avrmcu</h1><div class="highlight"><pre>
+<span></span><span class="c1">#-*- encoding=utf-8 -*-</span>
+
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">state</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">repertoir</span> <span class="kn">import</span> <span class="o">*</span>
+
+<div class="viewcode-block" id="AvrMcu"><a class="viewcode-back" href="../AvrMcu.html#avrmcu.AvrMcu">[docs]</a><span class="k">class</span> <span class="nc">AvrMcu</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Les instàncies de la classe AvrMcu són simuladors de l&#39;MCU AVR.</span>
+<span class="sd">    Executa un programa escrit en assemblador de l&#39;AVR.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inicialitza el simulador, fent un reset de l&#39;estat i inicialitzant el repertori d&#39;instruccions amb les</span>
+<span class="sd">        instàncies d&#39;InstRunner corresponents.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_s</span> <span class="o">=</span> <span class="n">State</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rep</span> <span class="o">=</span> <span class="n">Repertoir</span><span class="p">([</span><span class="n">Add</span><span class="p">(),</span> <span class="n">Adc</span><span class="p">(),</span> <span class="n">Sub</span><span class="p">(),</span> <span class="n">Subi</span><span class="p">(),</span> <span class="n">And</span><span class="p">(),</span> <span class="n">Or</span><span class="p">(),</span> <span class="n">Eor</span><span class="p">(),</span> <span class="n">Lsr</span><span class="p">(),</span> <span class="n">Mov</span><span class="p">(),</span> <span class="n">Ldi</span><span class="p">(),</span> <span class="n">Sts</span><span class="p">(),</span> <span class="n">Lds</span><span class="p">(),</span> <span class="n">Rjmp</span><span class="p">(),</span> <span class="n">Brbs</span><span class="p">(),</span> <span class="n">Brbc</span><span class="p">(),</span> <span class="n">Nop</span><span class="p">(),</span> <span class="n">Break</span><span class="p">(),</span> <span class="n">In</span><span class="p">(),</span> <span class="n">Out</span><span class="p">()])</span>
+
+<div class="viewcode-block" id="AvrMcu.reset"><a class="viewcode-back" href="../AvrMcu.html#avrmcu.AvrMcu.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fa un reset de l&#39;estat deixant-lo de la mateixa forma que el mètode constructor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_s</span> <span class="o">=</span> <span class="n">State</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="AvrMcu.set_prog"><a class="viewcode-back" href="../AvrMcu.html#avrmcu.AvrMcu.set_prog">[docs]</a>    <span class="k">def</span> <span class="nf">set_prog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">p</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        El mètode instal·la el programa p, que és una llista d&#39;enters que representen un programa</span>
+<span class="sd">        en llenguatge màquina de l’AVR, en la memòria de programa del simulador a partir</span>
+<span class="sd">        de l&#39;adreça 0000.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="o">.</span><span class="n">prog</span> <span class="o">=</span> <span class="n">p</span></div>
+
+<div class="viewcode-block" id="AvrMcu.dump_reg"><a class="viewcode-back" href="../AvrMcu.html#avrmcu.AvrMcu.dump_reg">[docs]</a>    <span class="k">def</span> <span class="nf">dump_reg</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retorna un string que correspon amb un bolcat dels registres del simulador.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="o">.</span><span class="n">dump_reg</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="AvrMcu.dump_dat"><a class="viewcode-back" href="../AvrMcu.html#avrmcu.AvrMcu.dump_dat">[docs]</a>    <span class="k">def</span> <span class="nf">dump_dat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retorna un str que representa un bolcat de la memòria de dades del simulador.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="o">.</span><span class="n">dump_dat</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="AvrMcu.dump_prog"><a class="viewcode-back" href="../AvrMcu.html#avrmcu.AvrMcu.dump_prog">[docs]</a>    <span class="k">def</span> <span class="nf">dump_prog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retorna un str que representa un bolcat de la memòria de programa del simulador.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="o">.</span><span class="n">dump_prog</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="AvrMcu.run"><a class="viewcode-back" href="../AvrMcu.html#avrmcu.AvrMcu.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        És el mètode principal del simulador.</span>
+<span class="sd">        Obté la instrucció indicada pel PC, busca un InstRunner que pugui executar</span>
+<span class="sd">        aquesta instrucció i l&#39;executa.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">instruction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="o">.</span><span class="n">prog</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="o">.</span><span class="n">pc</span><span class="p">]</span>
+                    <span class="n">instruction2</span> <span class="o">=</span> <span class="n">Word</span><span class="p">()</span>
+                <span class="k">except</span> <span class="n">OutOfMemError</span><span class="p">:</span>
+                    <span class="n">Debug</span><span class="p">(</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;El programa ha arribat al seu final sense una instruccio BREAK, es torna a comencar&#39;</span><span class="p">))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="o">.</span><span class="n">pc</span> <span class="o">=</span> <span class="n">Word</span><span class="p">()</span>
+                    <span class="n">instruction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="o">.</span><span class="n">prog</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="o">.</span><span class="n">pc</span><span class="p">]</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">runner</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rep</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">instruction</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">runner</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">Lds</span><span class="p">())</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">runner</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">Sts</span><span class="p">()):</span>
+                        <span class="n">instruction2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="o">.</span><span class="n">prog</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="o">.</span><span class="n">pc</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                        <span class="n">runner</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">instruction</span><span class="p">,</span> <span class="n">instruction2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">runner</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">instruction</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="p">)</span>
+                <span class="k">except</span> <span class="n">UnknownCodeError</span><span class="p">:</span>
+                    <span class="n">Debug</span><span class="p">(</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;La instruccio a executar es desconeguda&#39;</span><span class="p">))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="o">.</span><span class="n">pc</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">except</span> <span class="n">BreakException</span><span class="p">:</span>
+            <span class="n">Debug</span><span class="p">(</span><span class="n">success</span><span class="p">(</span><span class="s2">&quot;Fi de la simulacio&quot;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="AvrMcu.set_trace"><a class="viewcode-back" href="../AvrMcu.html#avrmcu.AvrMcu.set_trace">[docs]</a>    <span class="k">def</span> <span class="nf">set_trace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Quan s&#39;invoca amb t = True activa el mode trace de la memòria de dades. Si s&#39;activa</span>
+<span class="sd">        amb t = False es desactiva el mode.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">t</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">trace_on</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">trace_off</span><span class="p">()</span></div></div>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">simulador</span> <span class="o">=</span> <span class="n">AvrMcu</span><span class="p">()</span>
+    <span class="n">Debug</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Èrik Campobadal - Pau De Las Heras - Aleix Gil - Gemma Rosell - Roger Solans.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

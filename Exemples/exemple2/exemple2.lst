@@ -1,0 +1,24 @@
+
+AVRA   Ver. 1.3.0 exemple2.asm Wed Jun 15 16:35:40 2016
+
+
+         ; Carrega dos valors als registres 16 i 17, amb una instrucció nul·la entremig
+C:000000 ef0f      LDI R16, 0xff
+C:000001 0000      NOP
+C:000002 e011      LDI R17, 1
+         ; Suma el valor guardat al registre 17 amb ell mateix
+C:000003 0f11      ADD R17, R17
+         ; Copia el valor del registre 17 al registre 0
+C:000004 2e01      MOV R0, R17
+         ; Fa una AND entre el valor del registre 0 i el 16
+C:000005 2200      AND R0, R16
+         ; Els registres queden de la següent manera: r0:2, r16:0xff i r17:2
+C:000006 9598      BREAK
+
+
+Segment usage:
+   Code      :         7 words (14 bytes)
+   Data      :         0 bytes
+   EEPROM    :         0 bytes
+
+Assembly completed with no errors.

@@ -1,0 +1,433 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Mòdul BitVec &mdash; Projecte TeProg: SimulAVR 1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Projecte TeProg: SimulAVR 1.0 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Projecte TeProg: SimulAVR
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Simulador AVR</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BitVec.html">Mòdul BitVec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BitVecTest.html">Doctests del Mòdul BitVec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Memory.html">Mòdul Memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="State.html">Mòdul State</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Instruction.html">Mòdul Instruction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Repertoir.html">Mòdul Repertoir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AvrMcu.html">Mòdul AvrMcu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AVRException.html">Mòdul AVRException</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SimAvr.html">Mòdul SimAvr</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Projecte TeProg: SimulAVR</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Mòdul BitVec</li>
+    <li class="wy-breadcrumbs-aside">
+      
+          
+          <a href="_sources/BitVecTest (Case Conflict).txt" rel="nofollow"> View page source</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="modul-bitvec">
+<h1>Mòdul BitVec<a class="headerlink" href="#modul-bitvec" title="Permalink to this headline">¶</a></h1>
+<dl class="docutils">
+<dt>class BitVector(object):</dt>
+<dd><dl class="first docutils">
+<dt>&#8220;&#8221;&#8220;</dt>
+<dd>Classe abstracta que representa paraules binàries</dd>
+</dl>
+<p>&#8220;&#8221;&#8221;
+def __init__(self, w = 0):</p>
+<blockquote>
+<div>&#8220;&#8221;&#8221;
+Permet inicialitzar una paraula a partir d&#8217;un enter amb signe.
+&#8220;&#8221;&#8220;</div></blockquote>
+<dl class="last docutils">
+<dt>def extract_field_u(self, mask):</dt>
+<dd>&#8220;&#8221;&#8221;
+Permet l&#8217;extracció d&#8217;un camp de la paraula com a enter sense signe.
+&gt;&gt;&gt; Byte(166).extract_field_u(51)
+10
+&#8220;&#8221;&#8220;</dd>
+<dt>def extract_field_s(self, mask):</dt>
+<dd>&#8220;&#8221;&#8221;
+Permet l&#8217;extracció d&#8217;un camp de la paraula com a enter amb signe.
+&gt;&gt;&gt; Byte(-166).extract_field_s(51)
+6
+&gt;&gt;&gt; Byte(166).extract_field_s(51)
+-6
+&#8220;&#8221;&#8220;</dd>
+<dt>def __int__(self):</dt>
+<dd>&#8220;&#8221;&#8221;
+Retorna el valor corresponent a la paraula com a enter sense signe.
+&gt;&gt;&gt; int(Byte(7))
+7
+&gt;&gt;&gt; int(Byte(0b1011))
+11
+&gt;&gt;&gt; int(Word(403))
+403
+&#8220;&#8221;&#8220;</dd>
+<dt>def __index__(self):</dt>
+<dd>&#8220;&#8221;&#8221;
+Retorna l&#8217;índex correspont al valor de la paraula com a enter sense signe.
+&#8220;&#8221;&#8220;</dd>
+<dt>def __repr__(self):</dt>
+<dd>&#8220;&#8221;&#8221;
+Retorna la representació en hexadecimal del valor de la paraula en els dígits corresponents.
+&gt;&gt;&gt; print Byte(10)
+0A
+&gt;&gt;&gt; print Word(10)
+000A
+&gt;&gt;&gt; print Byte(1)
+01
+&gt;&gt;&gt; print Byte(15)
+0F
+&gt;&gt;&gt; print Byte(-1)
+FF
+&gt;&gt;&gt; print Byte(403)
+93
+&#8220;&#8221;&#8220;</dd>
+<dt>def __add__(self, o):</dt>
+<dd>&#8220;&#8221;&#8221;
+Permet la suma de paraules.
+&gt;&gt;&gt; Byte(2) + Byte(12)
+0E
+&gt;&gt;&gt; Byte(12) + 2
+0E
+&#8220;&#8221;&#8220;</dd>
+<dt>def __sub__(self, o):</dt>
+<dd>&#8220;&#8221;&#8221;
+Permet la resta de paraules.
+&gt;&gt;&gt; Byte(12) - Byte(2)
+0A
+&gt;&gt;&gt; Byte(12) - 2
+0A
+&#8220;&#8221;&#8220;</dd>
+<dt>def __and__(self, o):</dt>
+<dd>&#8220;&#8221;&#8221;
+Permet l&#8217;AND lògic bit a bit de paraules.
+&gt;&gt;&gt; Byte(8) &amp; Byte(8)
+08
+&gt;&gt;&gt; Byte(7) &amp; Byte(0b0010)
+02
+&gt;&gt;&gt; Byte(0xff) &amp; Byte(0b1011)
+0B
+&#8220;&#8221;&#8220;</dd>
+<dt>def __or__(self, o):</dt>
+<dd>&#8220;&#8221;&#8221;
+Permet l&#8217;OR lògic bit a bit de paraules.
+&gt;&gt;&gt; Byte(24) | Byte(8)
+18
+&gt;&gt;&gt; Byte(7) | Byte(0b0010)
+07
+&gt;&gt;&gt; Byte(3) | Byte(4)
+07
+&#8220;&#8221;&#8220;</dd>
+<dt>def __xor__(self, o):</dt>
+<dd>&#8220;&#8221;&#8221;
+Permet l&#8217;XOR lògic bit a bit de paraules.
+&gt;&gt;&gt; Byte(24) ^ Byte(8)
+10
+&gt;&gt;&gt; Byte(0xff) ^ Byte(0b1011)
+F4
+&#8220;&#8221;&#8220;</dd>
+<dt>def __invert__(self):</dt>
+<dd>&#8220;&#8221;&#8221;
+Permet la inversió lògica bit a bit de paraules.
+&gt;&gt;&gt; ~ Byte(24)
+E7
+&gt;&gt;&gt; ~ Byte(0xf0)
+0F
+&gt;&gt;&gt; print ~ Byte(0b101010)
+D5
+&#8220;&#8221;&#8220;</dd>
+<dt>def __lshift__(self, i):</dt>
+<dd>&#8220;&#8221;&#8221;
+Permet la rotació a l&#8217;esquerra de paraules.
+&gt;&gt;&gt; Byte(1) &lt;&lt; 4
+10
+&gt;&gt;&gt; Byte(0xfe) &lt;&lt; 3
+F0
+&#8220;&#8221;&#8220;</dd>
+<dt>def __rshift__(self, i):</dt>
+<dd>&#8220;&#8221;&#8221;
+Permet la rotació a la dreta de paraules.
+&gt;&gt;&gt; Byte(0xff) &gt;&gt; 4
+0F
+&#8220;&#8221;&#8220;</dd>
+<dt>def __eq__(self, o):</dt>
+<dd>&#8220;&#8221;&#8221;
+Permet l&#8217;operació d&#8217;igualtat de paraules.
+&gt;&gt;&gt; Byte(2) == 2
+True
+&gt;&gt;&gt; Byte(8) == Byte(8)
+True
+&gt;&gt;&gt; Byte(12) == -12
+False
+&gt;&gt;&gt; Byte(244) == -12
+True
+&#8220;&#8221;&#8220;</dd>
+<dt>def __ne__(self, o):</dt>
+<dd>&#8220;&#8221;&#8221;
+Permet l&#8217;operació de desigualtat de paraules.
+&gt;&gt;&gt; Byte(2) != 2
+False
+&gt;&gt;&gt; Byte(8) != Byte(8)
+False
+&gt;&gt;&gt; Byte(12) != -12
+True
+&gt;&gt;&gt; Byte(244) != -12
+False
+&#8220;&#8221;&#8220;</dd>
+<dt>def __getitem__(self, i):</dt>
+<dd>&#8220;&#8221;&#8221;
+Permet l&#8217;accés de lectura als bits d&#8217;una paraula individualment.
+&gt;&gt;&gt; Byte(2)[0]
+False
+&gt;&gt;&gt; Byte(2)[1]
+True
+&gt;&gt;&gt; Byte(10)[7]
+False
+&#8220;&#8221;&#8220;</dd>
+<dt>def __setitem__(self, i, v):</dt>
+<dd>&#8220;&#8221;&#8221;
+Permet l&#8217;accés d&#8217;escriptura als bits d&#8217;una paraula individualment.
+&gt;&gt;&gt; a = Byte(2)
+&gt;&gt;&gt; a[1] = 0
+&gt;&gt;&gt; print a
+00
+&gt;&gt;&gt; b = Byte(4)
+&gt;&gt;&gt; b[0] = 1
+&gt;&gt;&gt; print b
+05
+&#8220;&#8221;&#8220;</dd>
+</dl>
+</dd>
+<dt>class Byte(BitVector):</dt>
+<dd><p class="first">&#8220;&#8221;&#8221;
+Classe que representa paraules binàries de mida 8.
+&#8220;&#8221;&#8221;
+def __len__(self):</p>
+<blockquote>
+<div>&#8220;&#8221;&#8221;
+Retorna la llargada d&#8217;un byte, 8.
+&gt;&gt;&gt; print len(Byte(4))
+8
+&#8220;&#8221;&#8220;</div></blockquote>
+<dl class="last docutils">
+<dt>def concat(self, b):</dt>
+<dd>&#8220;&#8221;&#8221;
+Permet concatenar bytes per a construir paraules.
+&gt;&gt;&gt; b = Byte(255)
+&gt;&gt;&gt; c = Byte(0)
+&gt;&gt;&gt; d = b.concat(c)
+&gt;&gt;&gt; print d
+FF00
+&#8220;&#8221;&#8220;</dd>
+</dl>
+</dd>
+<dt>class Word(BitVector):</dt>
+<dd><p class="first">&#8220;&#8221;&#8221;
+Classe que representa paraules binàries de mida 16.
+&#8220;&#8221;&#8221;
+def __len__(self):</p>
+<blockquote>
+<div>&#8220;&#8221;&#8221;
+Retorna la llargada d&#8217;una paraula, 16.
+&gt;&gt;&gt; print len(Word(24))
+16
+&#8220;&#8221;&#8220;</div></blockquote>
+<dl class="last docutils">
+<dt>def lsb(self):</dt>
+<dd>&#8220;&#8221;&#8221;
+Permet obtenir el byte de menor pes d&#8217;una paraula.
+&gt;&gt;&gt; Word(255).lsb()
+FF
+&gt;&gt;&gt; Word(65535).lsb()
+FF
+&#8220;&#8221;&#8220;</dd>
+<dt>def msb(self):</dt>
+<dd>&#8220;&#8221;&#8221;
+Permet obtenir el byte de major pes d&#8217;una paraula.
+&gt;&gt;&gt; Word(255).msb()
+00
+&gt;&gt;&gt; Word(65535).msb()
+FF
+&#8220;&#8221;&#8220;</dd>
+</dl>
+</dd>
+</dl>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Èrik Campobadal - Pau De Las Heras - Aleix Gil - Gemma Rosell - Roger Solans.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

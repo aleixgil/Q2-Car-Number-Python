@@ -1,0 +1,30 @@
+
+AVRA   Ver. 1.3.0 exemple5.asm Wed Jun 15 17:18:33 2016
+
+
+         ; Compta fins a 15 en hexadecimal
+         ; Carrega 15 al registre 20
+C:000000 e04f      LDI r20, 15
+         ; Incrementa en 1 el valor del registre 17 i l'imprimeix en hexadecimal
+C:000001 5f1f      SUBI r17, -1
+C:000002 b911      OUT 1, r17
+         ; Mentre el valor imprès és diferent a 15, el programa arriba al final i torna a començar
+         ; Quan arriba a 15, el programa executa una ordre BREAK i s'acaba la simulació
+         ; Els registres queden de la següent manera: r17:15, r20:0, zero:1,
+         ; carry:1 (ja que restem tota l'estona -1, que sense signe en binari equivaldria a 255,
+         ; de major valor absolut que els valors que pren el registre)
+C:000003 2741      EOR r20, r17
+C:000004 f009      BRBS 1, FINISH
+C:000005 f409      BRBC 1, CONTINUE
+          FINISH:
+C:000006 9598      BREAK
+          CONTINUE:
+C:000007 0000      NOP
+
+
+Segment usage:
+   Code      :         8 words (16 bytes)
+   Data      :         0 bytes
+   EEPROM    :         0 bytes
+
+Assembly completed with no errors.

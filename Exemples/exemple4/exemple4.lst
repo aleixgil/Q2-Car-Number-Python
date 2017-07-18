@@ -1,0 +1,24 @@
+
+AVRA   Ver. 1.3.0 exemple4.asm Wed Jun 15 16:31:07 2016
+
+
+         ; Carrega el valor 1 al registre 17 i el 254 al registre 16
+C:000000 e011      LDI R17, 1
+C:000001 ef0e      LDI R16, 254
+          LAB1:
+         ; Suma al valor del registre 16 el del registre 17
+C:000002 1f01      ADC R16, R17
+         ; Fins que el resultat de la suma no és zero (per tant quan la suma és 255 + 1 = 0x100) es repeteix
+         ; el procés, ja que s'ignora el primer salt condicional i es compleix el segon.
+C:000003 f009      BRBS 1, LAB2
+C:000004 cffd      RJMP LAB1
+          LAB2:
+C:000005 9598      BREAK
+
+
+Segment usage:
+   Code      :         6 words (12 bytes)
+   Data      :         0 bytes
+   EEPROM    :         0 bytes
+
+Assembly completed with no errors.

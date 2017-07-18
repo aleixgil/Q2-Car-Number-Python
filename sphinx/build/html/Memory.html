@@ -1,0 +1,266 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Mòdul Memory &mdash; Projecte TeProg: SimulAVR 1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Projecte TeProg: SimulAVR 1.0 documentation" href="index.html"/>
+        <link rel="next" title="Mòdul State" href="State.html"/>
+        <link rel="prev" title="Doctests del Mòdul BitVec" href="BitVecTest.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Projecte TeProg: SimulAVR
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Simulador AVR</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BitVec.html">Mòdul BitVec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BitVecTest.html">Doctests del Mòdul BitVec</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Mòdul Memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="State.html">Mòdul State</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Instruction.html">Mòdul Instruction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Repertoir.html">Mòdul Repertoir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AvrMcu.html">Mòdul AvrMcu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AVRException.html">Mòdul AVRException</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SimAvr.html">Mòdul SimAvr</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Projecte TeProg: SimulAVR</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Mòdul Memory</li>
+    <li class="wy-breadcrumbs-aside">
+      
+          
+          <a href="_sources/Memory.txt" rel="nofollow"> View page source</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-memory">
+<span id="modul-memory"></span><h1>Mòdul Memory<a class="headerlink" href="#module-memory" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="memory.DataMemory">
+<em class="property">class </em><code class="descclassname">memory.</code><code class="descname">DataMemory</code><span class="sig-paren">(</span><em>ncells=1024</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/memory.html#DataMemory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#memory.DataMemory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classe que representa bancs de memòria per emmagatzemar dades.</p>
+<dl class="method">
+<dt id="memory.DataMemory.dump_reg">
+<code class="descname">dump_reg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/memory.html#DataMemory.dump_reg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#memory.DataMemory.dump_reg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retorna un str que representa els registres continguts en el banc de memòria.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="memory.Memory">
+<em class="property">class </em><code class="descclassname">memory.</code><code class="descname">Memory</code><a class="reference internal" href="_modules/memory.html#Memory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#memory.Memory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classe abstracta que representa bancs de memòria.</p>
+<dl class="method">
+<dt id="memory.Memory.dump">
+<code class="descname">dump</code><span class="sig-paren">(</span><em>f=0</em>, <em>t=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/memory.html#Memory.dump"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#memory.Memory.dump" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retorna un str que conté un bolcat del banc de memòria de les cel·les
+que estan en l’interval d’adreces [f, t).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="memory.Memory.trace_off">
+<code class="descname">trace_off</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/memory.html#Memory.trace_off"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#memory.Memory.trace_off" title="Permalink to this definition">¶</a></dt>
+<dd><p>Desactiva la funcionalitat de trace.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="memory.Memory.trace_on">
+<code class="descname">trace_on</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/memory.html#Memory.trace_on"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#memory.Memory.trace_on" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activa la funcionalitat de trace.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="memory.OutOfMemError">
+<em class="property">exception </em><code class="descclassname">memory.</code><code class="descname">OutOfMemError</code><a class="reference internal" href="_modules/memory.html#OutOfMemError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#memory.OutOfMemError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Denota un accés a un banc de memòria amb una adreca inexistent.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="memory.ProgramMemory">
+<em class="property">class </em><code class="descclassname">memory.</code><code class="descname">ProgramMemory</code><span class="sig-paren">(</span><em>ncells=1024</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/memory.html#ProgramMemory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#memory.ProgramMemory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classe que representa bancs de memòria per emmagatzemar programes.</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="State.html" class="btn btn-neutral float-right" title="Mòdul State" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="BitVecTest.html" class="btn btn-neutral" title="Doctests del Mòdul BitVec" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Èrik Campobadal - Pau De Las Heras - Aleix Gil - Gemma Rosell - Roger Solans.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
